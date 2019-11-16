@@ -9,7 +9,7 @@ struct Params
     dataset_name::String
     n::Int64
     p::Int64
-    D::Array{Int64}
+    D::Array{Float64}
     demand::Array{Int64}
     capacity::Array{Int64}
     solution_cost::Any
@@ -53,8 +53,9 @@ function loadInstance(instance_path::String)
     n,p = map(x->parse(Int64, x), split(lines[1], r"\s+"))
 
     D = join(lines[2:end-2], " ")
-    D = map(x->parse(Int64, x), split(D, r"\s+"))
+    D = map(x->parse(Float64, x), split(D, r"\s+"))
     D = reshape(D,n,n)
+    @assert D' == D
 
     demand = map(x->parse(Int64, x), split(lines[end-1], r"\s+"))
 
