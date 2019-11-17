@@ -2,7 +2,6 @@ using JuMP, AmplNLWriter, Gurobi
 
 function getCoverageArea(params, r)
     n = params.n
-    D = params.D
     p = params.p
     D = params.D
     demand = params.demand
@@ -26,7 +25,6 @@ end
 
 function solveCSCP_r(params, r; verbose=true)
     n = params.n
-    D = params.D
     p = params.p
     D = params.D
     demand = params.demand
@@ -74,7 +72,7 @@ function solveCSCP_r(params, r; verbose=true)
 
     # Recover solution
     y = getvalue(y)
-    yi = [Int(y[i]) for i in F]
+    yi = y[:] # convert JuMPArray to ordinary Array
 
     openF = findall(yi .== 1)
 
@@ -85,6 +83,7 @@ function solveCSCP_r(params, r; verbose=true)
     end
     sol = zeros(Int64, n)
     for j in C
+        # Check if any customer is assigned to more than one facility
         fac = findall(xi[:,j] .== 1)
         @assert length(fac) == 1
         @assert fac[1] in openF

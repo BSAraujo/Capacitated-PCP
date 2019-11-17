@@ -10,6 +10,9 @@ function SequentialSearch(params; verbose=true)
     demand = params.demand
     capacity = params.capacity
 
+    # Start counting solve time
+    start = time();
+
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
 
@@ -20,7 +23,7 @@ function SequentialSearch(params; verbose=true)
     xi = nothing
     yi = nothing
     zi = nothing
-    while (~isFeasible)
+    while (~isFeasible) # TODO: stop if exceeds time limit
         zi = distance_values[i]
         if verbose
             println("SS: i=$i; zi=$zi")
@@ -28,7 +31,8 @@ function SequentialSearch(params; verbose=true)
         isFeasible, xi, yi = solveCSCP_r(params, zi, verbose=false)
         i += 1
     end
-    return xi, yi, zi
+    solvetime = time() - start;
+    return solvetime, xi, yi, zi
 end
 
 
