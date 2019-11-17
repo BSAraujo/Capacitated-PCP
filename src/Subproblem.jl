@@ -23,7 +23,7 @@ function getCoverageArea(params, r)
 end
 
 
-function solveCSCP_r(params, r; verbose=true)
+function solveCSCP_r(params, r; time_limit=400, verbose=true)
     n = params.n
     p = params.p
     D = params.D
@@ -38,7 +38,7 @@ function solveCSCP_r(params, r; verbose=true)
 
     ### -----------------------------------------------------
     # Optimization model
-    model = Model(solver=GurobiSolver(TimeLimit=400, OutputFlag=verbose)) # version 0.18 of JuMP
+    model = Model(solver=GurobiSolver(TimeLimit=time_limit, OutputFlag=verbose)) # version 0.18 of JuMP
 
     # Variables
     @variable(model, x[i in F, j in coverageC[i]], Bin)
@@ -91,5 +91,5 @@ function solveCSCP_r(params, r; verbose=true)
     end
     xi = sol
     
-    return isFeasible, xi, yi
+    return isFeasible, status, xi, yi
 end

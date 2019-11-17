@@ -4,7 +4,7 @@ struct Params
     output_path::String              # Path to the output solution
     # PARAMETERS OF THE ALGORITHM
     seed::Int 
-    max_time::Int 
+    max_time::Float64 
     # DATASET INFORMATION
     dataset_name::String
     n::Int64
@@ -17,7 +17,10 @@ struct Params
 end
 
 
-function Params(instance_path::String, output_path::String, seed::Int, max_time::Int)
+function Params(instance_path::String, output_path::String, seed::Int, max_time::Int64)
+    return Params(instance_path, output_path, seed, Float64(max_time))
+end
+function Params(instance_path::String, output_path::String, seed::Int, max_time::Float64)
     """
     Constructor of struct Params  
     """

@@ -4,7 +4,6 @@ include("Params.jl")
 
 function SequentialSearch(params; verbose=true)
     n = params.n
-    D = params.D
     p = params.p
     D = params.D
     demand = params.demand
@@ -19,20 +18,49 @@ function SequentialSearch(params; verbose=true)
     # Solve subproblems in increasing order of z and 
     # stop as soon as a feasible solution is found.
     isFeasible = false
-    i = 1
+    obj_lb = distance_values[1]
+    obj_ub = distance_values[end]
     xi = nothing
     yi = nothing
     zi = nothing
-    while (~isFeasible) # TODO: stop if exceeds time limit
+    status = nothing
+    i = 1
+    while (~isFeasible) 
+        # Check if there is any remaining time from time budget
+        remaining_time = params.max_time - (time() - start)
+        if remaining_time < 0
+            status = :UserLimit
+            break
+        end
+
+        # Get next distance value
         zi = distance_values[i]
         if verbose
-            println("SS: i=$i; zi=$zi")
+            println(string("SS: i=$i; zi=$zi; LB=$obj_lb; UB=$obj_ub; Time=",
+                           round(time() - start, digits=2),"s"))
         end
-        isFeasible, xi, yi = solveCSCP_r(params, zi, verbose=false)
+
+        # Run Subproblem
+        isFeasible, status, xi, yi = solveCSCP_r(params, zi, 
+                                                 time_limit=remaining_time, 
+                                                 verbose=false)
+        
+        # Check if Subproblem returned UserLimit status
+        if status == :UserLimit
+            zi = distance_values[i-1]
+            break
+        end
+
+        obj_lb = zi
         i += 1
     end
+
+    # Update Upper Bound (if a feasible solution was found)
+    if status != :UserLimit
+        obj_ub = zi
+    end
     solvetime = time() - start;
-    return solvetime, xi, yi, zi
+    return obj_lb, obj_ub, status, solvetime, zi, xi, yi
 end
 
 
@@ -81,7 +109,6 @@ end
 
 function runLayeredSearch(params, L; verbose=true)
     n = params.n
-    D = params.D
     p = params.p
     D = params.D
     demand = params.demand
