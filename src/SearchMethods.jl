@@ -1,6 +1,3 @@
-include("Subproblem.jl")
-include("Params.jl")
-
 
 function SequentialSearch(params; verbose=true)
     n = params.n

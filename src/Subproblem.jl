@@ -1,4 +1,3 @@
-using JuMP, AmplNLWriter, Gurobi
 
 function getCoverageArea(params, r)
     n = params.n
