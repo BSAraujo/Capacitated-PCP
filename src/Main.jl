@@ -20,8 +20,10 @@ function main()
     println(string("Number of nodes: n=", params.n))
     println(string("Maximum number of facilities to be opened: p=", params.p))
 
-    #solveCPCP_D(params)
-    ILS(params)
+    solveCPCP_D(params)
+    solution, solutionCost = ILS(params)
+    println("Solution: ", solution)
+    println("SolutionCost: ", solutionCost)
 end
 
 main()

@@ -263,13 +263,17 @@ function facSwap(params,solution,solutionCost)
         end
         # solution[r][s] is the costly customer
         improved = false
-        for k = 1:params.p
-            # we seek for a different facility
-            if k != r
+        assigned_facilities = falses(params.n)
+
+        for i = 1:params.p
+            allocated_facility = solution[i][1]
+            assigned_facilities[allocated_facility] = true
+        end
+
+        for i = 1:size(assigned_facilities)[1]
+            if ~assigned_facilities[i] && solution[r][1] != i
                 tempSolution = deepcopy(solution)
-                customer = tempSolution[r][s]
-                deleteat!(tempSolution[r],s)
-                push!(tempSolution[k],customer)
+                tempSolution[r][1] = i
                 if checkFeasible(params,tempSolution)
                     tempCost = calcSolutionCost(params,tempSolution)
                     if tempCost < bestCustSwapCost
@@ -291,6 +295,22 @@ function facSwap(params,solution,solutionCost)
 end
 
 function perturbation(params,solution,solutionCost)
+    assigned_facilities = Any[]
+    for i = 1:params.p
+        push!(assigned_facilities,solution[i][1])
+    end
+    facility_out_index = rand(1:params.p)
+    facility_out = assigned_facilities[facility_out_index]
+    while true
+        facility_in = rand(1:params.n)
+        if findfirst(x-> x == facility_in,assigned_facilities) === nothing
+            solution[facility_out_index][1] = facility_in
+            #this will reach nonfeasible solution if capacities are heterogenous
+            if checkFeasible(params,solution)
+                break
+            end
+        end
+    end
     return solution, solutionCost
 end
 
@@ -303,7 +323,6 @@ function computeOverlineD(params,solution)
         #Calculate overline_Q of facility i (excess in Q)
         for j = 2:size(solution[i])[1]
             customer = solution[i][j]
-            # println(customer)
             overline_Q =  overline_Q + params.demand[customer]
         end
         if overline_Q > params.capacity[facility]
@@ -346,7 +365,6 @@ end
 function ILS(params)
     
     bestSolution, bestCost = constructSolution(params)
-    println("Initial solution: ",bestCost)
     bestSolution, bestCost = localSearch(params,bestSolution,bestCost)
 
     for i = 1:300
@@ -357,6 +375,6 @@ function ILS(params)
             bestSolution = deepcopy(solution)
         end
     end 
-    println("Final ILS solution: ",bestCost)
+    
     return bestSolution, bestCost 
 end
