@@ -28,10 +28,11 @@ function main()
     println(string("Maximum number of facilities to be opened: p=", params.p))
 
     obj_lb, obj_ub, status, solvetime, z, x, y = solveCPCP_D(params)
+
     #Short print
-    println("status: ",status,"; solvetime: ",solvetime,"; z: ",z)
+    println("OUTPUT#instance: ",c.instance_path,"; status: ",status,"; solvetime: ",solvetime,"; z: ",z)
     #Full print
-    #println("obj_lb: ", obj_lb, "; obj_ub: ",obj_ub," ; status: ",status,"; solvetime: ",solvetime,"; z: ",z,";\nx: ",x,";\n y: ",y,";")
+    # println("OUTPUT#instance: ", c.instance_path, "; obj_lb: ", obj_lb, "; obj_ub: ",obj_ub," ; status: ",status,"; solvetime: ",solvetime,"; z: ",z,";\nx: ",x,";\n y: ",y,";")
 end
 
 main()
