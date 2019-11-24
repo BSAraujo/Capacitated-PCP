@@ -6,6 +6,7 @@ struct Commandline
     seed::Int                        # Random seed (defaults to 0, in this case the current time value will be used as seed)
     instance_path::String            # Instance path
     output_path::String              # Output path
+    enable_ils::Bool                 # Enable ILS for obtaining an initial bound
 end
 
 # Constructor of struct Commandline
@@ -31,7 +32,11 @@ function Commandline()
         "--seed"
             help = "Random seed (defaults to 0, in this case the current time value will be used as seed)"
             arg_type = Int
-            default = 0
+            default = 0 
+        "--enable_ils"
+            help = "Enable ILS (defaults to 1, in this case the ILS is activated."
+            arg_type = Bool
+            default = true
     end
 
     args = parse_args(s)
@@ -42,6 +47,6 @@ function Commandline()
         args["sol"] = "../outputs/sol-"*instance_name
     end
 
-    c = Commandline(true, args["cpu_time"], args["seed"], args["instance_path"], args["sol"])
+    c = Commandline(true, args["cpu_time"], args["seed"], args["instance_path"], args["sol"], args["enable_ils"])
     return c
 end

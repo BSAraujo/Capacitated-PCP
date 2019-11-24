@@ -34,6 +34,12 @@ function solveCPCP_D(params; verbose=true)
     # Solve
     println()
     start = time();
+
+    if params.enable_ils
+        solution, solutionCost = ILS(params)
+        setvalue(z,solutionCost)
+    end
+
     # optimize!(model)
     status = solve(model) # version 0.18 of JuMP
     solvetime = getsolvetime(model)
