@@ -61,9 +61,70 @@ function SequentialSearch(params; verbose=true)
 end
 
 
+
+
 function BinarySearch(params; verbose=true)
-    # TODO
-    throw("not implemented")
+    n = params.n
+    p = params.p
+    D = params.D
+    demand = params.demand
+    capacity = params.capacity
+
+    # Start counting solve time
+    start = time();
+
+    # Distinct values from the distance matrix, in increasing order
+    distance_values = sort(unique(D))
+
+    ilow = 1
+    iup = length(distance_values)
+
+    obj_lb, obj_ub = distance_values[ilow], distance_values[iup]
+    while true
+        # Base case
+        if iup == ilow + 1
+            zi = distance_values[iup]
+            obj_lb = obj_ub = zi
+            status = :Optimal
+            break
+        end
+
+        # Check if there is any remaining time from time budget
+        remaining_time = params.max_time - (time() - start)
+        if remaining_time < 0
+            zi = distance_values[iup]
+            status = :UserLimit
+            break
+        end
+
+        if verbose
+            println("ilow=$ilow; iup=$iup; LB=$obj_lb; UB=$obj_ub")
+        end
+
+        imid = Int(floor((ilow + iup)/2))
+        zi = distance_values[imid]
+
+        # Run Subproblem
+        remaining_time = params.max_time - (time() - start)
+        isFeasible, status, xi, yi = solveCSCP_r(params, zi, time_limit=remaining_time, verbose=false)
+
+        # Check if Subproblem returned UserLimit status
+        if status == :UserLimit
+            break
+        end
+
+        # Update LB and UB
+        if isFeasible
+            iup = imid
+            obj_ub = zi
+        else
+            ilow = imid
+            obj_lb = zi
+        end
+    end
+
+    solvetime = time() - start;
+    return obj_lb, obj_ub, status, solvetime, zi, xi, yi
 end
 
 
@@ -133,7 +194,7 @@ function LayeredSearchRecursive(params, distance_values, L, ilow, iup, start_tim
         if status == :UserLimit
             return obj_lb, obj_ub, status, zi, xi, yi
         end
-        
+
         if verbose
             println("Feasible: $isFeasible")
         end
