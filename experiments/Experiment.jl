@@ -10,7 +10,9 @@ include("../src/ExactMethods.jl")
 
 path = "../instances/S1"
 
-output_path = "results/experiment1.txt"
+method = "CPCP_D"
+
+output_path = string("results/experiment-S1-", method, ".txt")
 
 # Get a list of all files to be run
 all_files = Array{String}([])
@@ -45,7 +47,7 @@ end
 
 row = nothing
 for file in all_files
-    instance_path = string(path, "/", file)
+    instance_path = file
     println("Instance path: $instance_path")
 
     seed = 0
@@ -53,7 +55,6 @@ for file in all_files
     params = Params(instance_path, output_path, seed, cpu_time, false)
     println("Dataset: $(params.dataset_name)")
 
-    method = "CPCP_D"
     obj_lb, obj_ub, status, solvetime, z, x, y = solveCPCP_D(params, verbose=false)
 
     row = (params.instance_path, params.dataset_name, method, obj_lb, obj_ub, string(status), solvetime, params.enable_ils)

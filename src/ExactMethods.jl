@@ -65,3 +65,39 @@ function solveCPCP_D(params; verbose=true)
 
     return obj_lb, obj_ub, status, solvetime, z, x, y
 end
+
+
+
+function getCustomerArcs(params)
+    n = params.n
+    p = params.p
+    D = params.D
+    demand = params.demand
+    capacity = params.capacity
+
+    F = 1:n # facilities
+    C = 1:n # customers
+
+    customer_arcs = Matrix{Array{Any}}(undef, n, n)
+    for i in F, j in C
+        customer_arcs[i,j] = [(d, d+demand[j],j) for d in V[i]]
+    end
+    return customer_arcs
+end
+
+function getLossArcs(params)
+    n = params.n
+    p = params.p
+    D = params.D
+    demand = params.demand
+    capacity = params.capacity
+
+    F = 1:n # facilities
+    C = 1:n # customers
+
+    loss_arcs = Vector{Array{Any}}(undef, n)
+    for i in F
+        loss_arcs[i] = [(d, capacity[i], 0) for d in V[i][1:end-1]]
+    end
+    return loss_arcs
+end
