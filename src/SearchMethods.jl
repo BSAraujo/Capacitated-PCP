@@ -12,6 +12,12 @@ function SequentialSearch(params; verbose=true)
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
 
+    # Get initial solution from ILS
+    if params.enable_ils
+        solution, solutionCost = ILS(params)
+        distance_values = distance_values[distance_values .<= solutionCost]
+    end
+
     # Solve subproblems in increasing order of z and
     # stop as soon as a feasible solution is found.
     isFeasible = false
@@ -75,6 +81,12 @@ function BinarySearch(params; verbose=true)
 
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
+
+    # Get initial solution from ILS
+    if params.enable_ils
+        solution, solutionCost = ILS(params)
+        distance_values = distance_values[distance_values .<= solutionCost]
+    end
 
     ilow = 1
     iup = length(distance_values)
@@ -224,6 +236,12 @@ function LayeredSearch(params, L; verbose=true)
 
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
+
+    # Get initial solution from ILS
+    if params.enable_ils
+        solution, solutionCost = ILS(params)
+        distance_values = distance_values[distance_values .<= solutionCost]
+    end
 
     ilow = 1
     iup = length(distance_values)
