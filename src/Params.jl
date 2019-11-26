@@ -3,8 +3,8 @@ struct Params
     instance_path::String            # Path to the instance
     output_path::String              # Path to the output solution
     # PARAMETERS OF THE ALGORITHM
-    seed::Int 
-    max_time::Float64 
+    seed::Int
+    max_time::Float64
     enable_ils::Bool
     # DATASET INFORMATION
     dataset_name::String
@@ -18,12 +18,12 @@ struct Params
 end
 
 
-function Params(instance_path::String, output_path::String, seed::Int, max_time::Int64,enable_ils::Bool)
+function Params(instance_path::String, output_path::String, seed::Int, max_time::Int64, enable_ils::Bool)
     return Params(instance_path, output_path, seed, Float64(max_time), enable_ils)
 end
 function Params(instance_path::String, output_path::String, seed::Int, max_time::Float64, enable_ils::Bool)
     """
-    Constructor of struct Params  
+    Constructor of struct Params
     """
     dataset_name = split(instance_path, '/')[end]
     n, p, D, demand, capacity = loadInstance(instance_path)
@@ -40,7 +40,7 @@ function Params(instance_path::String, output_path::String, seed::Int, max_time:
         cost = NaN
         sol = NaN
     end
-    params = Params(instance_path, output_path, seed, max_time, enable_ils, dataset_name, 
+    params = Params(instance_path, output_path, seed, max_time, enable_ils, dataset_name,
                     n, p, D, demand, capacity, sol, cost)
     return params
 end

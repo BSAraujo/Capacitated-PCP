@@ -7,16 +7,16 @@ function getCoverageArea(params, r)
     capacity = params.capacity
 
     # Set of customers lying in the coverage area of facility i induced by radius r
-    coverageC = Array{Array{Int64}}(undef, n) 
+    coverageC = Array{Array{Int64}}(undef, n)
     for i=1:n
         coverageC[i] = [j for j=1:n if (D[i,j] <= r && demand[j] <= capacity[i])]
-    end 
+    end
 
     # Set of facilities that can cover customer j within distance r
-    coverageF = Array{Array{Int64}}(undef, n) 
+    coverageF = Array{Array{Int64}}(undef, n)
     for j=1:n
         coverageF[j] = [i for i=1:n if (D[i,j] <= r && demand[j] <= capacity[i])]
-    end 
+    end
 
     return coverageC, coverageF
 end
@@ -47,8 +47,8 @@ function solveCSCP_r(params, r; time_limit=400, verbose=true)
     @objective(model, Min, sum(y[i] for i in F));
 
     # Constraints
-    @constraint(model, con12[j in C], sum(x[i,j] for i in coverageF[j]) == 1); 
-    @constraint(model, con13[i in F], sum(demand[j] * x[i,j] for j in coverageC[i]) <= capacity[i] * y[i]); 
+    @constraint(model, con12[j in C], sum(x[i,j] for i in coverageF[j]) == 1);
+    @constraint(model, con13[i in F], sum(demand[j] * x[i,j] for j in coverageC[i]) <= capacity[i] * y[i]);
 
     # Solve
     println()
@@ -67,7 +67,8 @@ function solveCSCP_r(params, r; time_limit=400, verbose=true)
         println("Number of nodes: ", getnodecount(model))
     end
 
-    isFeasible = obj_value <= p
+    # Check if the minimal number of facilities necessary to cover all customers is smaller than or equal to p
+    isFeasible = (obj_value <= p)
 
     # Recover solution
     y = getvalue(y)
@@ -89,6 +90,6 @@ function solveCSCP_r(params, r; time_limit=400, verbose=true)
         sol[j] = fac[1]
     end
     xi = sol
-    
+
     return isFeasible, status, xi, yi
 end

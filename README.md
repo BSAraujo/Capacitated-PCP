@@ -13,7 +13,7 @@ julia src/Main.jl <instance_path> --cpu_time 200 --seed 0
 
 ### Instances
 
-Instances that were used can be downloaded from: http://www.or.unimore.it/site/home/online-resources/capacitated-p-center-problem/instances.html
+Instances that were used can be downloaded from: http://www.or.unimore.it/site/home/online-resources/capacitated-p-center-problem/instances.html  
 The instances should be placed inside the folder "instances".
 
 ### References
