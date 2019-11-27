@@ -72,14 +72,14 @@ function solveCSCP_r(params, r; time_limit=400, verbose=true)
 
     # Recover solution
     y = getvalue(y)
-    yi = y[:] # convert JuMPArray to ordinary Array
+    yi = Int.(round.(y[:])) # convert JuMPArray to ordinary Array
 
     openF = findall(yi .== 1)
 
     x = getvalue(x)
     xi = zeros(Int64, n, n)
     for (i,j) in keys(x)
-        xi[i,j] = x[i,j]
+        xi[i,j] = Int(round(x[i,j]))
     end
     sol = zeros(Int64, n)
     for j in C
