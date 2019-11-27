@@ -17,45 +17,34 @@ function constructSolution(params)
     # Each row is "facility,customer,customer,customer..."
     opened_facilities = Any[]
     assigned_customers = falses(params.n)
-    #println("Calculated;")
     #In the loop below, we "delete" elements by setting infinity (INF)
     while length(opened_facilities) < params.p
         opening_facility = argmin(facility_density)
         current_capacity = params.capacity[opening_facility]
         customers_facility = params.D[:,opening_facility]
-        #println(customers_facility)
         closestCustomers = Int[]
         #Inserting facility
         push!(closestCustomers, opening_facility)
         closestCustomer = -1
-        #println("Opening facility: ",opening_facility)
-
         #Iterates whenever capacity is available
         while current_capacity >= 0
-            
             #Selects the kth-closestCustomer (e.g., if the closestCustomer has been already assigneed, then the 2-closest.. then k-closestCustomer)
             while true
                 closestCustomer = findmin(customers_facility)
-                
                 if closestCustomer[1] == Inf || ~assigned_customers[closestCustomer[2]]
                     break
                 else
                     customers_facility[closestCustomer[2]] = Inf
-                end
-                
+                end 
             end
-            #println("closestCustomer: ",closestCustomer)
             #There is no remaining customer 
             if closestCustomer[1] == Inf
                 break
             end
-            
-            #println("current_capacity: ", current_capacity, ", customer demand: ", params.demand[closestCustomer[2]])
-            #demands exceeds facility's capacity. Then we ignore the current customer and go to the next one
+            #If demands exceeds facility's capacity. Then we ignore the current customer and go to the next one
             if params.demand[closestCustomer[2]] > current_capacity
                 customers_facility[closestCustomer[2]] = Inf
             else
-                #println("customer inserted")
                 #current customer fits in the facility capacity
                 push!(closestCustomers,closestCustomer[2])
                 current_capacity = current_capacity - params.demand[closestCustomer[2]]
@@ -65,32 +54,22 @@ function constructSolution(params)
         end
         # facility is opened 
         facility_density[opening_facility] = Inf
-       # println(closestCustomers)
         push!(opened_facilities,closestCustomers)
     end
-    
-    if ~checkFeasible(params,opened_facilities)
-        throw("initial solution is not feasible")
+    #We assign unassigned customers to the closest facility (infeasibility may happen)
+    for i = 1:length(assigned_customers)
+        if ~assigned_customers[i]
+            best_facility = 1
+            for j = 2:params.p
+                if params.D[opened_facilities[j][1] ,i] < params.D[ opened_facilities[best_facility][1]  ,i] 
+                    best_facility = j
+                end
+            end
+            push!(opened_facilities[best_facility],i)
+        end
     end
-
-    # #Checker START
-    # counter = 0
-    # for i = 1:size(opened_facilities)[1]
-    #      counter = counter + size(opened_facilities[i])[1] - 1
-    # end
-    # nb_unassigned_customers = params.n - counter
-    # a = findall(x -> ~x, assigned_customers)
-    # if nb_unassigned_customers != size(a)[1]
-    #     println("Customers non-assigned yet:", a)
-    #     exit(0)
-    # end
-    # #Checker END
-
-    # if nb_unassigned_customers > 0
-    #     println("TODO assign unassigned customers to facilities")
-    #     exit()
-    # end
     solutionCost = calcSolutionCost(params,opened_facilities)
+
     return opened_facilities, solutionCost
 end
 
@@ -210,6 +189,8 @@ function relocate(params,solution,solutionCost)
 end
 
 function checkFeasible(params,solution)
+
+    #Check if capacity is exceed for any facility
     for i = 1:params.p
         total_demand = 0
         facility = solution[i][1]
@@ -222,6 +203,7 @@ function checkFeasible(params,solution)
         end
     end
 
+    #Check if all customers are assigned to a facility.
     customers_assigned = falses(params.n)
     for i = 1:params.p
         for j = 2:size(solution[i])[1]
@@ -303,14 +285,12 @@ function perturbation(params,solution,solutionCost)
     facility_out = assigned_facilities[facility_out_index]
     while true
         facility_in = rand(1:params.n)
-        if findfirst(x-> x == facility_in,assigned_facilities) === nothing
+        if ~(facility_in in assigned_facilities)
             solution[facility_out_index][1] = facility_in
-            #this will reach nonfeasible solution if capacities are heterogenous
-            if checkFeasible(params,solution)
-                break
-            end
+            break
         end
     end
+    solutionCost = calcSolutionCost(params,solution)
     return solution, solutionCost
 end
 

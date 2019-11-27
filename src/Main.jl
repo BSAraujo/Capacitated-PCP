@@ -5,8 +5,6 @@ include("ExactMethods.jl")
 include("Subproblem.jl")
 include("SearchMethods.jl")
 include("ILS.jl")
-# instance_path = "../instances/S1/p550/p550-1.txt"
-
 
 function main()
 
@@ -26,13 +24,28 @@ function main()
 
     println(string("Number of nodes: n=", params.n))
     println(string("Maximum number of facilities to be opened: p=", params.p))
-
-    obj_lb, obj_ub, status, solvetime, z, x, y = solveCPCP_D(params)
-
+    method = "CPCP_D"
+    obj_lb = nothing 
+    obj_ub = nothing 
+    status = nothing 
+    solvetime = nothing 
+    z = nothing 
+    x = nothing 
+    y = nothing 
+    ils_solution_cost = nothing 
+    if method == "CPCP_D"
+        obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = solveCPCP_D(params,false)
+    elseif method == "CPCP_R"
+        
+    end
     #Short print
-    println("OUTPUT#instance: ",c.instance_path,"; status: ",status,"; solvetime: ",solvetime,"; z: ",z)
-    #Full print
-    # println("OUTPUT#instance: ", c.instance_path, "; obj_lb: ", obj_lb, "; obj_ub: ",obj_ub," ; status: ",status,"; solvetime: ",solvetime,"; z: ",z,";\nx: ",x,";\n y: ",y,";")
+    #header: instance; method; LB; UB; z; status; ils_solution_cost; solvetime" 
+
+    f = open("experiments/output.csv", "a+") 
+
+    write(f, join([c.instance_path,method,obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
+    write(f, "\n")
+    close(f)
 end
 
 main()

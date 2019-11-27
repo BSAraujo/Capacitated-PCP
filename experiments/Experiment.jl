@@ -36,7 +36,7 @@ df = DataFrame(instance_path = String[],
                UB = Float64[],
                status = String[],
                solvetime = Float64[],
-               enable_ils = Bool[])
+               ils_solution_cost = Bool[])
 
 # Write column names of DataFrame to output file
 df_columns = string(join(string.(names(df)), "\t"),"\n")
@@ -55,9 +55,9 @@ for file in all_files
     params = Params(instance_path, output_path, seed, cpu_time, false)
     println("Dataset: $(params.dataset_name)")
 
-    obj_lb, obj_ub, status, solvetime, z, x, y = solveCPCP_D(params, verbose=false)
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = solveCPCP_D(params, verbose=false)
 
-    row = (params.instance_path, params.dataset_name, method, obj_lb, obj_ub, string(status), solvetime, params.enable_ils)
+    row = (params.instance_path, params.dataset_name, method, obj_lb, obj_ub, string(status), solvetime, ils_solution_cost)
 
     push!(df, row)
 

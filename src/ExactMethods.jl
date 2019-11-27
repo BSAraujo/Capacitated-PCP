@@ -1,5 +1,5 @@
 
-function solveCPCP_D(params; verbose=true)
+function solveCPCP_D(params, verbose=true)
     n = params.n
     p = params.p
     D = params.D
@@ -34,10 +34,10 @@ function solveCPCP_D(params; verbose=true)
     # Solve
     println()
     start = time();
-
+    ils_solution_cost = -1
     if params.enable_ils
-        solution, solutionCost = ILS(params)
-        setvalue(z,solutionCost)
+        solution, ils_solution_cost = ILS(params)
+        setvalue(z,ils_solution_cost)
     end
 
     # optimize!(model)
@@ -54,6 +54,7 @@ function solveCPCP_D(params; verbose=true)
         println("Status: $status")
         println("Solve time: $solvetime")
         println("Number of nodes: ", getnodecount(model))
+        println("ILS solutoin")
     end
 
     # Recover solution
@@ -63,7 +64,7 @@ function solveCPCP_D(params; verbose=true)
     y = y[:] # convert JuMPArray to ordinary Array
     z = getvalue(z);
 
-    return obj_lb, obj_ub, status, solvetime, z, x, y
+    return obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost
 end
 
 
