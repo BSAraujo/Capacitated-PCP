@@ -6,7 +6,8 @@ do
     for instance in $folder/*
     do
         echo "Executing: $instance"
-        julia ../src/Main.jl $instance > output-$instance.txt
+        basename_instance=${instance##*/}
+        julia ../src/Main.jl $instance > output-$basename_instance.txt
     done
 done
 
