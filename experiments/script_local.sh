@@ -5,10 +5,8 @@ for folder in $instances
 do
     for instance in $folder/*
     do
-        echo $instance
-        basename_instance=${instance##*/}
-        echo "Executing: $basename_instance"
-        # julia ../src/Main.jl $instance
+        echo "Executing: $instance"
+        julia ../src/Main.jl $instance > output-$instance.txt
     done
 done
 
