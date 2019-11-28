@@ -34,9 +34,9 @@ function Commandline()
             arg_type = Int
             default = 0 
         "--enable_ils"
-            help = "Enable ILS (defaults to 0, in this case the ILS is activated)"
+            help = "Enable ILS (defaults to true)"
             arg_type = Bool
-            default = false
+            default = true
     end
 
     args = parse_args(s)

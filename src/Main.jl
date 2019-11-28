@@ -33,19 +33,32 @@ function main()
     x = nothing 
     y = nothing 
     ils_solution_cost = nothing 
-    if method == "CPCP_D"
-        obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = solveCPCP_D(params,false)
-    elseif method == "CPCP_R"
-        
-    end
+    f = open("../experiments/output.csv", "a+") 
+
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = solveCPCP_D(params)
+    write(f, join([c.instance_path,"solveCPCP_D",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
+    write(f, "\n")
+
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = SequentialSearch(params)
+    write(f, join([c.instance_path,"SequentialSearch",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
+    write(f, "\n")
+
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = BinarySearch(params)
+    write(f, join([c.instance_path,"BinarySearch",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
+    write(f, "\n")
+    L = 2
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = LayeredSearch(params,L )
+    write(f, join([c.instance_path,"LayeredSearch-$L",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))    
+    write(f, "\n")
+
+    close(f)
+
     #Short print
     #header: instance; method; LB; UB; z; status; ils_solution_cost; solvetime" 
 
-    f = open("experiments/output.csv", "a+") 
 
-    write(f, join([c.instance_path,method,obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
-    write(f, "\n")
-    close(f)
+
+
 end
 
 main()

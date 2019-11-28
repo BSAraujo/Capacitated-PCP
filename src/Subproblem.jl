@@ -37,7 +37,7 @@ function solveCSCP_r(params, r; time_limit=400, verbose=true)
 
     ### -----------------------------------------------------
     # Optimization model
-    model = Model(solver=GurobiSolver(TimeLimit=time_limit, OutputFlag=verbose)) # version 0.18 of JuMP
+    model = Model(solver=GurobiSolver(TimeLimit=time_limit, Threads=1, OutputFlag=verbose)) # version 0.18 of JuMP
 
     # Variables
     @variable(model, x[i in F, j in coverageC[i]], Bin)

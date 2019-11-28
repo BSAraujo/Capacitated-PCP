@@ -1,5 +1,5 @@
 
-function solveCPCP_D(params, verbose=true)
+function solveCPCP_D(params; verbose=true)
     n = params.n
     p = params.p
     D = params.D
@@ -15,7 +15,7 @@ function solveCPCP_D(params, verbose=true)
 
     ### -----------------------------------------------------
     # Optimization model
-    model = Model(solver=GurobiSolver(TimeLimit=time_limit, OutputFlag=verbose)) # version 0.18 of JuMP
+    model = Model(solver=GurobiSolver(TimeLimit=time_limit, Threads=1,OutputFlag=verbose)) # version 0.18 of JuMP
 
     # Variables
     @variable(model, x[F,C], Bin)

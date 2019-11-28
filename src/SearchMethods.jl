@@ -11,11 +11,11 @@ function SequentialSearch(params; verbose=true)
 
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
-
+    ils_solution_cost = -1
     # Get initial solution from ILS
     if params.enable_ils
-        solution, solutionCost = ILS(params)
-        distance_values = distance_values[distance_values .<= solutionCost]
+        solution, ils_solution_cost = ILS(params)
+        distance_values = distance_values[distance_values .<= ils_solution_cost]
     end
 
     # Solve subproblems in increasing order of z and
@@ -63,7 +63,7 @@ function SequentialSearch(params; verbose=true)
         obj_ub = zi
     end
     solvetime = time() - start;
-    return obj_lb, obj_ub, status, solvetime, zi, xi, yi
+    return obj_lb, obj_ub, status, solvetime, zi, xi, yi, ils_solution_cost
 end
 
 
@@ -78,14 +78,17 @@ function BinarySearch(params; verbose=true)
 
     # Start counting solve time
     start = time();
-
+    status = nothing
+    zi = nothing
+    xi = nothing
+    yi = nothing
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
-
+    ils_solution_cost = -1
     # Get initial solution from ILS
     if params.enable_ils
-        solution, solutionCost = ILS(params)
-        distance_values = distance_values[distance_values .<= solutionCost]
+        solution, ils_solution_cost = ILS(params)
+        distance_values = distance_values[distance_values .<= ils_solution_cost]
     end
 
     ilow = 1
@@ -136,7 +139,7 @@ function BinarySearch(params; verbose=true)
     end
 
     solvetime = time() - start;
-    return obj_lb, obj_ub, status, solvetime, zi, xi, yi
+    return obj_lb, obj_ub, status, solvetime, zi, xi, yi, ils_solution_cost
 end
 
 
@@ -236,11 +239,11 @@ function LayeredSearch(params, L; verbose=true)
 
     # Distinct values from the distance matrix, in increasing order
     distance_values = sort(unique(D))
-
+    ils_solution_cost = -1
     # Get initial solution from ILS
     if params.enable_ils
-        solution, solutionCost = ILS(params)
-        distance_values = distance_values[distance_values .<= solutionCost]
+        solution, ils_solution_cost = ILS(params)
+        distance_values = distance_values[distance_values .<= ils_solution_cost]
     end
 
     ilow = 1
@@ -248,5 +251,5 @@ function LayeredSearch(params, L; verbose=true)
     obj_lb, obj_ub, status, zi, xi, yi  = LayeredSearchRecursive(params, distance_values, L, ilow, iup, start, verbose=verbose)
 
     solvetime = time() - start;
-    return obj_lb, obj_ub, status, solvetime, zi, xi, yi
+    return obj_lb, obj_ub, status, solvetime, zi, xi, yi, ils_solution_cost
 end
