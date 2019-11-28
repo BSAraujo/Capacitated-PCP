@@ -46,7 +46,18 @@ function main()
     obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = BinarySearch(params)
     write(f, join([c.instance_path,"BinarySearch",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))
     write(f, "\n")
+    
     L = 2
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = LayeredSearch(params,L )
+    write(f, join([c.instance_path,"LayeredSearch-$L",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))    
+    write(f, "\n")
+
+    L = 3
+    obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = LayeredSearch(params,L )
+    write(f, join([c.instance_path,"LayeredSearch-$L",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))    
+    write(f, "\n")
+
+    L = 4
     obj_lb, obj_ub, status, solvetime, z, x, y, ils_solution_cost = LayeredSearch(params,L )
     write(f, join([c.instance_path,"LayeredSearch-$L",obj_lb,obj_ub,z,status,ils_solution_cost,solvetime],";"))    
     write(f, "\n")
