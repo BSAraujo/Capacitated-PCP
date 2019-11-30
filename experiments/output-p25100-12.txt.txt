@@ -1,0 +1,379 @@
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+Optimize a model with 301 rows, 10101 columns and 30198 nonzeros
+Variable types: 1 continuous, 10100 integer (10100 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+02]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e+00, 1e+02]
+  RHS range        [1e+00, 2e+01]
+
+MIP start produced solution with objective 52 (0.06s)
+Loaded MIP start with objective 52
+
+Presolve removed 0 rows and 4460 columns
+Presolve time: 0.15s
+Presolved: 301 rows, 5641 columns, 16818 nonzeros
+Variable types: 0 continuous, 5641 integer (5640 binary)
+
+Root relaxation: objective 0.000000e+00, 473 iterations, 0.01 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   94   52.00000    0.00000   100%     -    0s
+H    0     0                      47.0000000    0.00000   100%     -    0s
+H    0     0                      46.0000000    0.00000   100%     -    0s
+     0     0    4.41153    0  356   46.00000    4.41153  90.4%     -    0s
+H    0     0                      45.0000000    4.41153  90.2%     -    0s
+H    0     0                      42.0000000    4.41153  89.5%     -    0s
+H    0     0                      32.0000000    4.41153  86.2%     -    0s
+     0     0    4.41158    0  356   32.00000    4.41158  86.2%     -    0s
+     0     0    5.53957    0  420   32.00000    5.53957  82.7%     -    0s
+     0     0    5.53957    0   94   32.00000    5.53957  82.7%     -    0s
+H    0     0                      30.0000000    5.53957  81.5%     -    0s
+     0     0    5.53957    0  363   30.00000    5.53957  81.5%     -    0s
+H    0     0                      28.0000000    5.53957  80.2%     -    0s
+H    0     0                      26.0000000    5.53957  78.7%     -    0s
+     0     0    5.53957    0  412   26.00000    5.53957  78.7%     -    0s
+     0     0    5.56707    0  420   26.00000    5.56707  78.6%     -    0s
+     0     0    5.57036    0  422   26.00000    5.57036  78.6%     -    0s
+     0     0    5.57928    0  418   26.00000    5.57928  78.5%     -    0s
+     0     0    5.58493    0  422   26.00000    5.58493  78.5%     -    0s
+     0     0    5.58523    0  423   26.00000    5.58523  78.5%     -    0s
+     0     0    6.00000    0  393   26.00000    6.00000  76.9%     -    0s
+     0     0    6.00000    0   56   26.00000    6.00000  76.9%     -    0s
+H    0     0                      23.0000000    6.00000  73.9%     -    0s
+     0     0    7.08601    0  301   23.00000    7.08601  69.2%     -    0s
+H    0     0                      22.0000000    7.08601  67.8%     -    0s
+     0     0    7.59173    0  356   22.00000    7.59173  65.5%     -    1s
+     0     0    7.80254    0  384   22.00000    7.80254  64.5%     -    1s
+     0     0    7.81489    0  390   22.00000    7.81489  64.5%     -    1s
+     0     0    7.81757    0  390   22.00000    7.81757  64.5%     -    1s
+     0     0    7.81790    0  394   22.00000    7.81790  64.5%     -    1s
+     0     0    8.00202    0  418   22.00000    8.00202  63.6%     -    1s
+     0     0    8.00202    0   41   22.00000    8.00202  63.6%     -    1s
+H    0     0                      21.0000000    8.00202  61.9%     -    1s
+     0     0    8.31343    0  289   21.00000    8.31343  60.4%     -    1s
+H    0     0                      20.0000000    8.31343  58.4%     -    1s
+     0     0    8.73155    0  313   20.00000    8.73155  56.3%     -    1s
+     0     0    8.93345    0  309   20.00000    8.93345  55.3%     -    1s
+     0     0    8.97323    0  336   20.00000    8.97323  55.1%     -    1s
+     0     0    9.00951    0  343   20.00000    9.00951  55.0%     -    1s
+     0     0    9.01648    0  357   20.00000    9.01648  54.9%     -    1s
+     0     0    9.01790    0  373   20.00000    9.01790  54.9%     -    1s
+     0     0    9.01864    0  372   20.00000    9.01864  54.9%     -    1s
+     0     0    9.01866    0  371   20.00000    9.01866  54.9%     -    1s
+     0     0   10.00000    0  305   20.00000   10.00000  50.0%     -    1s
+H    0     0                      19.0000000   10.00000  47.4%     -    1s
+     0     0   10.00000    0  277   19.00000   10.00000  47.4%     -    1s
+     0     0   10.11180    0  326   19.00000   10.11180  46.8%     -    1s
+H    0     0                      18.0000000   10.11180  43.8%     -    1s
+     0     0   10.16601    0  302   18.00000   10.16601  43.5%     -    1s
+     0     0   10.23577    0  298   18.00000   10.23577  43.1%     -    1s
+     0     0   10.23781    0  299   18.00000   10.23781  43.1%     -    1s
+     0     0   10.58763    0  258   18.00000   10.58763  41.2%     -    1s
+     0     0   10.58763    0   35   18.00000   10.58763  41.2%     -    1s
+     0     0   10.58763    0   96   18.00000   10.58763  41.2%     -    1s
+H    0     0                      17.0000000   10.58763  37.7%     -    1s
+     0     0   10.58763    0  230   17.00000   10.58763  37.7%     -    1s
+     0     0   11.00000    0  100   17.00000   11.00000  35.3%     -    1s
+     0     0   11.00000    0  139   17.00000   11.00000  35.3%     -    1s
+     0     0   11.16503    0  223   17.00000   11.16503  34.3%     -    1s
+     0     0   11.21443    0  239   17.00000   11.21443  34.0%     -    1s
+     0     0   11.32857    0  232   17.00000   11.32857  33.4%     -    1s
+     0     0   11.32865    0  243   17.00000   11.32865  33.4%     -    1s
+     0     0   11.44086    0  242   17.00000   11.44086  32.7%     -    1s
+     0     0   11.44222    0  256   17.00000   11.44222  32.7%     -    1s
+     0     0   11.44864    0  255   17.00000   11.44864  32.7%     -    1s
+     0     0   12.00000    0   64   17.00000   12.00000  29.4%     -    1s
+     0     0   12.00000    0   55   17.00000   12.00000  29.4%     -    1s
+     0     2   12.00000    0   47   17.00000   12.00000  29.4%     -    1s
+H  432   198                      15.0000000   12.00000  20.0%  25.3    2s
+H  525   166                      13.0000000   13.00000  0.00%  24.7    2s
+
+Cutting planes:
+  Gomory: 33
+  Cover: 92
+  Implied bound: 1
+  Clique: 17
+  MIR: 17
+  StrongCG: 12
+  Flow cover: 36
+  Zero half: 3
+
+Explored 525 nodes (37979 simplex iterations) in 2.52 seconds
+Thread count was 1 (of 8 available processors)
+
+Solution count 10: 13 15 17 ... 26
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.300000000000e+01, best bound 1.300000000000e+01, gap 0.0000%
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+
+--------------------------------------------
+Warning: your license will expire in 11 days
+--------------------------------------------
+
+Academic license - for non-commercial use only
+Input File: "../instances/S1/p25100/p25100-12.txt"
+Running code with seed=0
+ILS ON
+Number of nodes: n=100
+Maximum number of facilities to be opened: p=25
+
+
+Obj. LB = 13.0
+Obj. UB = 13.0
+Status: Optimal
+Solve time: 2.521723985671997
+Number of nodes: 525
+ILS solutoin
+SS: i=1; zi=0.0; LB=0.0; UB=58.0; Time=6.62s
+
+SS: i=2; zi=1.0; LB=0.0; UB=58.0; Time=7.23s
+
+SS: i=3; zi=2.0; LB=1.0; UB=58.0; Time=7.23s
+
+SS: i=4; zi=3.0; LB=2.0; UB=58.0; Time=7.24s
+
+SS: i=5; zi=4.0; LB=3.0; UB=58.0; Time=7.24s
+
+SS: i=6; zi=5.0; LB=4.0; UB=58.0; Time=7.25s
+
+SS: i=7; zi=6.0; LB=5.0; UB=58.0; Time=7.25s
+
+SS: i=8; zi=7.0; LB=6.0; UB=58.0; Time=7.26s
+
+SS: i=9; zi=8.0; LB=7.0; UB=58.0; Time=7.27s
+
+SS: i=10; zi=9.0; LB=8.0; UB=58.0; Time=7.28s
+
+SS: i=11; zi=10.0; LB=9.0; UB=58.0; Time=7.33s
+
+SS: i=12; zi=11.0; LB=10.0; UB=58.0; Time=7.4s
+
+SS: i=13; zi=12.0; LB=11.0; UB=58.0; Time=7.45s
+
+SS: i=14; zi=13.0; LB=12.0; UB=58.0; Time=8.38s
+
+ilow=1; iup=59; LB=0.0; UB=58.0
+
+ilow=1; iup=30; LB=0.0; UB=29.0
+
+ilow=1; iup=15; LB=0.0; UB=14.0
+
+ilow=8; iup=15; LB=7.0; UB=14.0
+
+ilow=11; iup=15; LB=10.0; UB=14.0
+
+ilow=13; iup=15; LB=12.0; UB=14.0
+
+L=2; ilow=1; iup=59
+δ=8
+Solving CSCP-r for r=8.0; i=9; Time: 5.38s
+Feasible: false
+Solving CSCP-r for r=16.0; i=17; Time: 5.45s
+L=3; ilow=1; iup=53
+δ=14
+Solving CSCP-r for r=14.0; i=15; Time: 5.01s
+Feasible: true
+L=2; ilow=1; iup=15
+δ=4
+Solving CSCP-r for r=4.0; i=5; Time: 5.21s
+Feasible: false
+Solving CSCP-r for r=8.0; i=9; Time: 5.21s
+Feasible: false
+Solving CSCP-r for r=12.0; i=13; Time: 5.23s
+Feasible: false
+L=1; ilow=13; iup=15
+δ=1
+Solving CSCP-r for r=13.0; i=14; Time: 6.16s
+Feasible: true
+L=0; ilow=13; iup=14
+L=4; ilow=1; iup=59
+δ=21
+Solving CSCP-r for r=21.0; i=22; Time: 5.33s
+Feasible: true
+L=3; ilow=1; iup=22
+δ=8
+Solving CSCP-r for r=8.0; i=9; Time: 6.71s
+Feasible: false
+Solving CSCP-r for r=16.0; i=17; Time: 6.73s
